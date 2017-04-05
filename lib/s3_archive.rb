@@ -19,7 +19,8 @@ module S3Archive
 		def archive(target_dir, target_bucket)
 			if options[:each]
 				Dir.glob("#{target_dir}/**").each do |dir|
-					gotcha!(dir, target_bucket, options)
+					child = target_dir.split("/").last.gsub(/[.]/, "_")
+					gotcha!(dir, "#{target_bucket}/#{child}", options)
 				end
 			else
 				gotcha!(target_dir, target_bucket, options)

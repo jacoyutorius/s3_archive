@@ -14,10 +14,7 @@ module S3Archive
 
 		def execute
 			validations
-
-			if versioning
-				enable_bucket_versioning
-			end
+			enable_bucket_versioning if versioning
 
 			[
 				"tar -czvf #{archive_fullpath} #{dir}",
@@ -38,7 +35,7 @@ module S3Archive
 			def validations
 				raise Exception.new("aws cli was not installed!") unless cli_installed?
 				raise Exception.new("#{dir} target dir was not exist!") unless Dir.exists?(dir)
-				raise Exception.new("#{bucket} target bucket was not exist!") unless bucket_exist?(bucket)
+				# raise Exception.new("#{bucket} target bucket was not exist!") unless bucket_exist?(bucket)
 			end
 
 			def archive_name

@@ -61,7 +61,7 @@ s3_archive archive /Users/yuto-ogi/Work/vuejs app419 --dry false --each false
 
 # each => true
 s3_archive archive /Users/yuto-ogi/Work/vuejs app419 --dry false --each true
-# => movie-list.gz と vue-component-spa.gz がapp419にアップロードされる.	
+# => movie-list.gz と vue-component-spa.gz がapp419/vuejsにアップロードされる.	
 ```
 
 
