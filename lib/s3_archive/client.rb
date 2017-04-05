@@ -16,7 +16,6 @@ module S3Archive
 			validations
 
 			if versioning
-				# p "exec 'aws s3api put-bucket-versioning --bucket #{bucket} --versioning-configuration Status=Enabled"
 				enable_bucket_versioning
 			end
 
@@ -55,7 +54,7 @@ module S3Archive
 			end
 
 			def enable_bucket_versioning
-		    system "aws s3api put-bucket-versioning --bucket #{@bucket_name} --versioning-configuration Status=Enabled"
+		    system "aws s3api put-bucket-versioning --bucket #{bucket} --versioning-configuration Status=Enabled"
 		  end
 	end
 end
