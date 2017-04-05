@@ -7,8 +7,19 @@
 
 before you need to install AWS CLI.
 
+**install aws cli**
+
 ```
-gem install s3_archive
+chmod 700 install_awscli.sh
+./install_awscli.sh
+aws configure
+```
+
+**install ruby2.3**
+
+```
+chmod 700 install_ruby24.sh
+./install_ruby24.sh
 ```
 
 
