@@ -42,3 +42,26 @@ apply --dry option.
 ```
 s3_archive archive . app419 --dry true
 ```
+
+#### each
+
+指定したディレクトリ以下のファイルを個別に圧縮しアップロードする.
+
+```
+tree ~/Work/vue.js -L 1
+/Work/vuejs
+├── movie-list
+└── vue-component-spa
+
+2 directories, 0 files
+
+# each => false
+s3_archive archive /Users/yuto-ogi/Work/vuejs app419 --dry false --each false
+# => vuejs.gz がapp419にアップロードされる.	
+
+# each => true
+s3_archive archive /Users/yuto-ogi/Work/vuejs app419 --dry false --each true
+# => movie-list.gz と vue-component-spa.gz がapp419にアップロードされる.	
+```
+
+
