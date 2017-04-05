@@ -10,4 +10,4 @@ cd ~/.rbenv/plugins/ruby-build
 sudo ./install.sh
 
 rbenv install --list
-rbenv install 2.4.0
+rbenv install 2.3.0
