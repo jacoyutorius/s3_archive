@@ -28,15 +28,15 @@ module S3Archive
         	system command
         end
       end
-		rescue => ex
-			puts ex
 		end
 
 		private
 			def validations
-				raise Exception.new("aws cli was not installed!") unless cli_installed?
-				raise Exception.new("#{dir} target dir was not exist!") unless Dir.exists?(dir)
-				# raise Exception.new("#{bucket} target bucket was not exist!") unless bucket_exist?(bucket)
+				raise "aws cli was not installed!" unless cli_installed?
+				
+				if (!Dir.exists?(dir) || !File.exists?(dir))
+					raise "#{dir} target dir or file was not exist!"
+				end
 			end
 
 			def archive_name

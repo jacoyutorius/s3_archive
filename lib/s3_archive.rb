@@ -37,6 +37,8 @@ module S3Archive
 					dry: options[:dry],
 					region: options[:region]
 				).execute
+			rescue => ex
+				puts ex
 			end
 	end
 end

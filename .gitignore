@@ -6,3 +6,5 @@
 /doc/
 /spec/reports/
 /tmp/
+/pkg/
+/test_dir
