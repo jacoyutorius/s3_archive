@@ -16,6 +16,7 @@ module S3Archive
 		option :each, type: :boolean, default: false
 		option :enable_versioning, type: :boolean, default: true
 		option :dry, type: :boolean, default: false
+		option :region, type: :string, default: "ap-northeast-1"
 		def archive(target_dir, target_bucket)
 			if options[:each]
 				Dir.glob("#{target_dir}/**").each do |dir|
@@ -33,7 +34,8 @@ module S3Archive
 					dir: target_dir,
 					bucket: target_bucket,
 					versioning: options[:enable_versioning],
-					dry: options[:dry]
+					dry: options[:dry],
+					region: options[:region]
 				).execute
 			end
 	end

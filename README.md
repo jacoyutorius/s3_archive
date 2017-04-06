@@ -69,4 +69,14 @@ s3_archive archive /Users/yuto-ogi/Work/vuejs app419 --dry false --each true
 # => movie-list.gz と vue-component-spa.gz がapp419/vuejsにアップロードされる.	
 ```
 
+#### --region
+
+default is "ap-northeast-1".
+
+http://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/using-regions-availability-zones.html
+
+```
+s3_archive archive /Users/yuto-ogi/Work/vuejs app419 --region us-east-1
+```
+
 
