@@ -35,15 +35,20 @@ s3_archive 3_archive archive target_dir app419
 
 ## options
 
-#### dry-run
+#### --dry
 
-apply --dry option.
+実行されるコマンドのみ表示する.
 
 ```
 s3_archive archive . app419 --dry true
+
+# =>
+# "[dry-run]  tar -czvf /Work/vuejs.gz /Work/vuejs"
+# "[dry-run]  aws s3 cp /Work/vuejs.gz s3://app419/vuejs.gz"
+# "[dry-run]  rm -rf /Work/vuejs.gz"
 ```
 
-#### each
+#### --each
 
 指定したディレクトリ以下のファイルを個別に圧縮しアップロードする.
 

@@ -20,15 +20,15 @@ module S3Archive
 			if options[:each]
 				Dir.glob("#{target_dir}/**").each do |dir|
 					child = target_dir.split("/").last.gsub(/[.]/, "_")
-					gotcha!(dir, "#{target_bucket}/#{child}", options)
+					run(dir, "#{target_bucket}/#{child}", options)
 				end
 			else
-				gotcha!(target_dir, target_bucket, options)
+				run(target_dir, target_bucket, options)
 			end
 		end
 
 		private
-			def gotcha! target_dir, target_bucket, options
+			def run target_dir, target_bucket, options
 				Client.new(
 					dir: target_dir,
 					bucket: target_bucket,
