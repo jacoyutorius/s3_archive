@@ -18,8 +18,10 @@ rm -rf target_dir.gz
 
 ## before install
 
-- [ ] AWS CLI
-- [ ] Ruby 2.3
+以下が必要。
+
+- AWS CLI
+- Ruby 2.3
 
 
 ## Install 
