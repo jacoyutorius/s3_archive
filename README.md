@@ -2,10 +2,31 @@
 
 指定したディレクトリをtar.gz形式にて圧縮し、S3に世代別バックアップする.	
 
+## spec
 
-# Install 
+パラメータにて指定されたディレクトリを圧縮し、S3にアップロード。
+アップロード完了後、圧縮したファイルを削除する。
 
-before you need to install AWS CLI.
+
+**sample**
+
+```
+tar -czvf target_dir target_dir.gz
+aws s3 cp target_dir.gz s3://target_dir.gz --region ap-northeast-1,
+rm -rf target_dir.gz
+```
+
+## before install
+
+- [ ] AWS CLI
+- [ ] Ruby 2.3
+
+
+## Install 
+
+内部的にAWSコマンドを実行しているため、事前にAWS CLIのインストール & クレデンシャル設定が必要。
+aws configureを実行するとAWSの認証情報を聞かれるので、access_key, acess_secretを入力する。
+
 
 **install aws cli**
 
@@ -18,18 +39,23 @@ aws configure
 **install ruby2.3**
 
 ```
-chmod 700 install_ruby24.sh
-./install_ruby24.sh
+chmod 700 install_ruby23.sh
+./install_ruby23.sh
+ruby -v
 ```
 
+**install s3_archive**
 
-# Usage
+```bash
+cd s3_archive
+hmod 700 install.sh
+./install.sh
+s3_archive version
+```
+
+## Usage
 
 ```
-export AWS_ACCESS_KEY=************
-export AWS_ACCESS_SECRET=************
-export AWS_REGION=************
-
 s3_archive 3_archive archive target_dir app419
 ```
 
@@ -71,12 +97,13 @@ s3_archive archive /Users/yuto-ogi/Work/vuejs app419 --dry false --each true
 
 #### --region
 
-default is "ap-northeast-1".
-
-http://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/using-regions-availability-zones.html
+デフォルトは「ap-northeast-1(東京リージョン)」.
 
 ```
 s3_archive archive /Users/yuto-ogi/Work/vuejs app419 --region us-east-1
 ```
 
+東京以外のリージョンについては以下を参照。
+
+[リージョンとアベイラビリティーゾーン](http://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/using-regions-availability-zones.html)
 
