@@ -1,9 +1,11 @@
 require "s3_archive/aws"
+require "logger"
+require "json"
 
 module S3Archive
 	class Client
 		include S3Archive::AWS
-		attr_reader :dir, :bucket, :versioning, :dry, :region
+		attr_reader :dir, :bucket, :versioning, :dry, :region, :logger
 
 		def initialize dir: "", bucket: "", versioning: nil, dry: false, region: ""
 			@dir = File.expand_path(dir)
@@ -11,6 +13,7 @@ module S3Archive
 			@versioning = versioning
 			@dry = dry
 			@region = region
+			@logger = Logger.new(File.expand_path(File.dirname($0)) + "/s3_archive.log")
 		end
 
 		def execute
@@ -22,18 +25,27 @@ module S3Archive
         "aws s3 cp #{archive_fullpath} s3://#{bucket}/#{archive_name} --region #{region}",
         "rm -rf #{archive_fullpath}"
 			].each do |command|
-        if dry
-        	p "[dry-run]  " + command
-        else
-        	system command
-        end
+				log = { command: command, dry: dry }
+				logger.info(log.to_json)
+
+				puts "#{Time.now} #{dry ? "[dry-run]" : ""} #{command}"
+				if !dry
+					system command
+				end
       end
+		rescue => ex
+			logger.error({
+				message: ex.message,
+				backtrace: ex.backtrace[0..10]
+			}.to_json)
+		ensure
+
 		end
 
 		private
 			def validations
 				raise "aws cli was not installed!" unless cli_installed?
-				
+
 				if (!Dir.exists?(dir) || !File.exists?(dir))
 					raise "#{dir} target dir or file was not exist!"
 				end

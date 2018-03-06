@@ -8,3 +8,4 @@
 /tmp/
 /pkg/
 /test_dir
+exe/*.log
