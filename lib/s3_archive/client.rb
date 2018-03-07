@@ -22,7 +22,7 @@ module S3Archive
 
 			[
 				"tar -czvf #{archive_fullpath} #{dir}",
-        "aws s3 cp #{archive_fullpath} s3://#{bucket}/#{archive_name} --region #{region}",
+        "aws s3 cp #{archive_fullpath} s3://#{bucket}/#{archive_name} --region #{region} --storage-class STANDARD_IA",
         "rm -rf #{archive_fullpath}"
 			].each do |command|
 				log = { command: command, dry: dry }
