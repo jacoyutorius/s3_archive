@@ -1,6 +1,6 @@
 # S3Archive
 
-指定したディレクトリをtar.gz形式にて圧縮し、S3に世代別バックアップする.	
+指定したディレクトリをtar.gz形式にて圧縮し、S3に世代別バックアップする.
 
 ## spec
 
@@ -24,7 +24,7 @@ rm -rf target_dir.gz
 - Ruby 2.3
 
 
-## Install 
+## Install
 
 内部的にAWSコマンドを実行しているため、事前にAWS CLIのインストール & クレデンシャル設定が必要。
 aws configureを実行するとAWSの認証情報を聞かれるので、access_key, acess_secretを入力する。
@@ -90,11 +90,11 @@ tree ~/Work/vue.js -L 1
 
 # each => false
 s3_archive archive /Users/yuto-ogi/Work/vuejs app419 --dry false --each false
-# => vuejs.gz がapp419にアップロードされる.	
+# => vuejs.gz がapp419にアップロードされる.
 
 # each => true
 s3_archive archive /Users/yuto-ogi/Work/vuejs app419 --dry false --each true
-# => movie-list.gz と vue-component-spa.gz がapp419/vuejsにアップロードされる.	
+# => movie-list.gz と vue-component-spa.gz がapp419/vuejsにアップロードされる.
 ```
 
 #### --region
@@ -109,3 +109,28 @@ s3_archive archive /Users/yuto-ogi/Work/vuejs app419 --region us-east-1
 
 [リージョンとアベイラビリティーゾーン](http://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/using-regions-availability-zones.html)
 
+#### --profile
+
+デフォルトは「default」。
+
+**~/.aws/credentials**
+
+```bash
+[default]
+aws_access_key_id=********************
+aws_secret_access_key=****************************************
+
+[s3_admin]
+aws_access_key_id=********************
+aws_secret_access_key=****************************************
+
+[private]
+aws_access_key_id=********************
+aws_secret_access_key=****************************************
+```
+
+#### --storage_class
+
+デフォルトは「STANDARD_IA」。
+
+[aws s3 cp](https://docs.aws.amazon.com/cli/latest/reference/s3/cp.html)
