@@ -6,7 +6,7 @@ module S3Archive
 	class CLI < Thor
 		class_option :help, type: :boolean, aliases: "-h", desc: "help"
 		class_option :version, type: :boolean, desc: "version"
-	
+
 		desc "version", "show version"
 		def version
 			puts S3Archive::VERSION
@@ -17,6 +17,8 @@ module S3Archive
 		option :enable_versioning, type: :boolean, default: true
 		option :dry, type: :boolean, default: false
 		option :region, type: :string, default: "ap-northeast-1"
+		option :storage_class, type: :string, default: "STANDARD_IA"
+		option :profile, type: :string, default: "default"
 		def archive(target_dir, target_bucket)
 			if options[:each]
 				Dir.glob("#{target_dir}/**").each do |dir|
@@ -35,7 +37,9 @@ module S3Archive
 					bucket: target_bucket,
 					versioning: options[:enable_versioning],
 					dry: options[:dry],
-					region: options[:region]
+					region: options[:region],
+					storage_class: options[:storage_class],
+					profile: options[:profile]
 				).execute
 			rescue => ex
 				puts ex

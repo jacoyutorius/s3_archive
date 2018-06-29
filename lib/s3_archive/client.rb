@@ -5,14 +5,17 @@ require "json"
 module S3Archive
 	class Client
 		include S3Archive::AWS
-		attr_reader :dir, :bucket, :versioning, :dry, :region, :logger
+		attr_reader :dir, :bucket, :versioning, :dry, :region, :logger, :storage_class, :profile
 
-		def initialize dir: "", bucket: "", versioning: nil, dry: false, region: ""
+		def initialize dir: "", bucket: "", versioning: nil, dry: false, region: "", storage_class: "STANDARD_IA", profile: "default"
 			@dir = File.expand_path(dir)
 			@bucket = bucket
 			@versioning = versioning
 			@dry = dry
 			@region = region
+			@storage_class = storage_class
+			@profile = profile
+
 			@logger = Logger.new(File.expand_path(File.dirname($0)) + "/s3_archive.log")
 		end
 
@@ -22,7 +25,7 @@ module S3Archive
 
 			[
 				"tar -czvf #{archive_fullpath} #{dir}",
-        "aws s3 cp #{archive_fullpath} s3://#{bucket}/#{archive_name} --region #{region} --storage-class STANDARD_IA",
+        "aws s3 cp #{archive_fullpath} s3://#{bucket}/#{archive_name} --region #{region} --storage-class #{storage_class} --profile #{profile}",
         "rm -rf #{archive_fullpath}"
 			].each do |command|
 				log = { command: command, dry: dry }
